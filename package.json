@@ -1,0 +1,30 @@
+{
+  "name": "lessify",
+  "version": "0.1.0",
+  "description": "Middleware and Browserify transform for less files",
+  "main": "./index.js",
+  "browserify": "./transform.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Drew Stokes",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "through": "~2.3.4",
+    "less": "~1.3.1",
+    "cssify": "~0.3.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dstokes/lessify.git"
+  },
+  "keywords": [
+    "browserify",
+    "less",
+    "transform"
+  ],
+  "bugs": {
+    "url": "https://github.com/dstokes/lessify/issues"
+  }
+}
