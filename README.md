@@ -2,6 +2,7 @@ lessify
 =======
 Middleware and Brologrotate-streamwserify transform for less files.
 
+[![Build Status](https://travis-ci.org/dstokes/lessify.png)](https://travis-ci.org/dstokes/lessify)  
 [![NPM](https://nodei.co/npm/lessify.png?downloads=true)](https://nodei.co/npm/lessify/)
 
 usage
