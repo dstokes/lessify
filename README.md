@@ -1,6 +1,6 @@
 lessify
 =======
-Middleware and Bromwserify transform for less files.
+Middleware and Browserify transform for less files.
 
 [![Build Status](https://travis-ci.org/dstokes/lessify.png)](https://travis-ci.org/dstokes/lessify)  
 [![NPM](https://nodei.co/npm/lessify.png?downloads=true)](https://nodei.co/npm/lessify/)
