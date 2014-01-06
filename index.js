@@ -1,5 +1,6 @@
 var less = require("less")
-  , through = require('through');
+  , through = require('through')
+  , path = require('path');
 
 module.exports = function(file) {
   var input = '';
@@ -10,12 +11,36 @@ module.exports = function(file) {
   function write(data) { input += data; }
   function end() {
     var self = this;
-    less.render(input, function(err, css) {
-      if (err) throw new Error('Unable to parse less file: '+ file);
-      css = css.replace(/\"/g, "\\\"").replace(/\n/g, "\\\n");
-      var body = "var css = '"+ css +"';"+ 
-                 "(require('lessify'))(css); module.exports = css;";
-      self.queue(body);
+
+    function jsToLoad(css) {
+      return "var css = "+ JSON.stringify(css) +";"+ 
+             "(require('lessify'))(css); module.exports = css;";
+    }
+
+    function jsToThrow(error) {
+      return "throw new Error(" + JSON.stringify(JSON.stringify(error)) + ");";
+    }
+
+    function render(callback) {
+      try {
+        less.render(input, {filename: file, paths: [path.dirname(file)]}, function(err, css) {
+          if (err) {
+            callback(err);
+          } else {
+            callback(undefined, css);
+          }
+        });
+      } catch (error) {
+        callback(error);
+      }
+    }
+
+    render(function (err, css) {
+      if (err) {
+        self.queue(jsToThrow(err));
+      } else {
+        self.queue(jsToLoad(css));
+      }
       self.queue(null);
     });
   }

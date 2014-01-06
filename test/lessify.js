@@ -36,6 +36,12 @@ test('should throw on invalid less', function(t) {
   var result = ''
     , s = lessify('test.less'); 
 
-  s.write('.}');
-  t.throws(function() { s.end(); }, Error, 'should throw on invalid less');
+  var ts = through(function(d) { result += d; }, function() {
+    t.throws(function () { eval(result); }, Error, 'should throw parse error');
+    t.end();
+  });
+
+  s.pipe(ts);
+  s.write('.thing {');
+  s.end();
 });
