@@ -27,3 +27,8 @@ With [npm](http://npmjs.org) do:
 ```
 npm install lessify
 ```
+
+contributors
+============
+
+[https://github.com/dstokes/lessify/graphs/contributors](https://github.com/dstokes/lessify/graphs/contributors)
