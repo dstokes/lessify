@@ -17,21 +17,7 @@ module.exports = function(file) {
              "(require('lessify'))(css); module.exports = css;";
     }
 
-    function render(callback) {
-      try {
-        less.render(input, {filename: file, paths: [path.dirname(file)]}, function(err, css) {
-          if (err) {
-            callback(err);
-          } else {
-            callback(null, css);
-          }
-        });
-      } catch (error) {
-        callback(error);
-      }
-    }
-
-    render(function (err, css) {
+    less.render(input, {filename: file, paths: [path.dirname(file)]}, function(err, css) {
       if (err) {
         self.emit('error', err);
       } else {
