@@ -17,10 +17,6 @@ module.exports = function(file) {
              "(require('lessify'))(css); module.exports = css;";
     }
 
-    function jsToThrow(error) {
-      return "throw new Error(" + JSON.stringify(JSON.stringify(error)) + ");";
-    }
-
     function render(callback) {
       try {
         less.render(input, {filename: file, paths: [path.dirname(file)]}, function(err, css) {
@@ -37,7 +33,7 @@ module.exports = function(file) {
 
     render(function (err, css) {
       if (err) {
-        self.queue(jsToThrow(err));
+        self.emit('error', err);
       } else {
         self.queue(jsToLoad(css));
       }
