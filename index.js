@@ -27,7 +27,7 @@ module.exports = function(file) {
           if (err) {
             callback(err);
           } else {
-            callback(undefined, css);
+            callback(null, css);
           }
         });
       } catch (error) {
