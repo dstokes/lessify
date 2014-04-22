@@ -11,7 +11,7 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "through": "~2.3.4",
-    "less": "~1.5.1",
+    "less": "~1.7.0",
     "cssify": "~0.3.0",
     "underscore": "~1.6.0"
   },
