@@ -1,8 +1,9 @@
 var less = require("less")
   , through = require('through')
-  , path = require('path');
+  , path = require('path')
+  , _ = require('underscore');
 
-module.exports = function(file) {
+module.exports = function(file, opts) {
   var input = '';
   if (/\.less$/i.test(file) === false) {
     return through(); 
@@ -17,7 +18,12 @@ module.exports = function(file) {
              "(require('lessify'))(css); module.exports = css;";
     }
 
-    less.render(input, {filename: file, paths: [path.dirname(file)]}, function(err, css) {
+    var lessOpts = _.extend({
+      filename: file,
+      paths: [path.dirname(file)]
+    }, opts);
+
+    less.render(input, lessOpts, function(err, css) {
       if (err) {
         self.emit('error', err);
       } else {
