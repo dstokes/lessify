@@ -9,14 +9,40 @@ usage
 =====
 some.less
 ``` less
-  .nav { width: (1 + 1); }
+.nav { width: (1 + 1); }
 ```
 
 entry.js
 ```
 require('some.less');
+```
 
-// => we haz css in our bundle!
+then
+
+```
+> browserify -t lessify entry.js > app.js
+```
+
+we haz css in our bundle!
+
+options
+=======
+
+Less options can be specified either on the command line:
+
+```
+> browserify -t [ lessify --relativeUrls --rootpath http://www.example.com/ ] entry.js
+```
+
+Or using the API:
+
+```
+var browserify = require('browserify');
+var lessify = require('lessify');
+
+var b = browserify();
+b.transform({relativeUrls: true, rootpath: 'http://www.example.com/'}, lessify);
+...
 ```
 
 install

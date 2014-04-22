@@ -31,6 +31,22 @@ test('should browserify less files', function(t) {
   s.end();
 });
 
+test('should pass less options', function(t) {
+  var result = ''
+    , s = lessify('mycss/test.less', {rootpath: 'mycss/'}); 
+
+  var ts = through(function(d) { result += d; }, function() {
+    var urlMatch = /url\(\\"(.*?)\\"\)/.exec(result)
+    t.ok(urlMatch, 'should have background-image url');
+    t.equal(urlMatch[1], 'mycss/images/cat.jpg', 'should honour rootpath');
+    t.end();
+  });
+
+  s.pipe(ts);
+  s.write('body { background-image: url("images/cat.jpg"); }');
+  s.end();
+});
+
 test('should throw on invalid less', function(t) {
   t.plan(1);
   var result = ''
