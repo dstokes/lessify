@@ -12,8 +12,7 @@
   "dependencies": {
     "through": "~2.3.4",
     "less": "~1.7.0",
-    "cssify": "~0.3.0",
-    "underscore": "~1.6.0"
+    "cssify": "~0.3.0"
   },
   "devDependencies": {
     "tape": "~2.1.0"

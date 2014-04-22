@@ -1,7 +1,6 @@
 var less = require("less")
   , through = require('through')
-  , path = require('path')
-  , _ = require('underscore');
+  , path = require('path');
 
 module.exports = function(file, opts) {
   var input = '';
@@ -18,10 +17,9 @@ module.exports = function(file, opts) {
              "(require('lessify'))(css); module.exports = css;";
     }
 
-    var lessOpts = _.extend({
-      filename: file,
-      paths: [path.dirname(file)]
-    }, opts);
+    lessOpts = opts || {};
+    lessOpts.filename = file;
+    lessOpts.paths = [path.dirname(file)];
 
     less.render(input, lessOpts, function(err, css) {
       if (err) {

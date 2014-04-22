@@ -31,7 +31,7 @@ test('should browserify less files', function(t) {
   s.end();
 });
 
-test.only('should pass less options', function(t) {
+test('should pass less options', function(t) {
   var result = ''
     , s = lessify('mycss/test.less', {rootpath: 'mycss/'}); 
 
