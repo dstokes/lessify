@@ -5,7 +5,7 @@ var less = require("less")
 module.exports = function(file, opts) {
   var input = '';
   if (/\.less$/i.test(file) === false) {
-    return through(); 
+    return through();
   } 
 
   function write(data) { input += data; }
@@ -23,7 +23,7 @@ module.exports = function(file, opts) {
 
     less.render(input, lessOpts, function(err, css) {
       if (err) {
-        self.emit('error', err);
+        self.emit('error', new Error(err.message + ': ' + err.filename + '(' + err.line + ')'));
       } else {
         self.queue(jsToLoad(css));
       }
