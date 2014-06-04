@@ -53,5 +53,5 @@ test('should throw on invalid less', function(t) {
     , s = lessify('test.less'); 
 
   s.write('.}');
-  t.throws(function() { s.end(); }, Error, 'should throw on invalid less');
+  t.throws(function() { s.end(); }, new RegExp('missing opening `\\{`: test\\.less\\(1\\)'), 'should throw on invalid less');
 });
