@@ -6,18 +6,24 @@ module.exports = function(file, opts) {
   var input = '';
   if (/\.less$/i.test(file) === false) {
     return through();
-  } 
+  }
 
   function write(data) { input += data; }
   function end() {
     var self = this;
 
+    var autoInject = !opts || typeof(opts['auto-inject']) == 'undefined' || !!opts['auto-inject'];
+
     function jsToLoad(css) {
-      return "var css = "+ JSON.stringify(css) +";"+ 
-             "(require('lessify'))(css); module.exports = css;";
+      var stringifiedCss = JSON.stringify(css);
+      if (autoInject) {
+        return "var css = "+ stringifiedCss +";(require('lessify'))(css); module.exports = css;";
+      } else {
+        return "module.exports = " + stringifiedCss;
+      }
     }
 
-    lessOpts = opts || {};
+    var lessOpts = opts || {};
     lessOpts.filename = file;
     lessOpts.paths = [path.dirname(file)];
 
