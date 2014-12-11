@@ -11,8 +11,8 @@ module.exports = function(file, opts) {
   function write(data) { input += data; }
   function end() {
     var self = this;
-
-    var autoInject = !opts || typeof(opts['auto-inject']) == 'undefined' || !!opts['auto-inject'];
+    var lessOpts = (opts || {});
+    var autoInject = typeof(lessOpts['auto-inject']) == 'undefined' || !!lessOpts['auto-inject'];
 
     function jsToLoad(css) {
       var stringifiedCss = JSON.stringify(css);
@@ -23,7 +23,6 @@ module.exports = function(file, opts) {
       }
     }
 
-    var lessOpts = opts || {};
     lessOpts.filename = file;
     lessOpts.paths = [path.dirname(file)];
 
