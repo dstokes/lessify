@@ -10,9 +10,9 @@
   "author": "Drew Stokes",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "through": "~2.3.4",
-    "less": "~1.7.0",
-    "cssify": "~0.3.0"
+    "cssify": "^0.6.0",
+    "less": "^1.7.5",
+    "through": "^2.3.6"
   },
   "devDependencies": {
     "tape": "~2.1.0"
