@@ -5,7 +5,7 @@ var test = require('tape')
 test('skips non-less files', function(t) {
   var result = ''
     , input  = 'test'
-    , s = lessify('test.js'); 
+    , s = lessify('test.js');
 
   var ts = through(function(d) { result += d; }, function() {
     t.assert(result === input, 'should pass through non-less files');
@@ -19,7 +19,7 @@ test('skips non-less files', function(t) {
 
 test('should browserify less files', function(t) {
   var result = ''
-    , s = lessify('test.less'); 
+    , s = lessify('test.less');
 
   var ts = through(function(d) { result += d; }, function() {
     t.assert(result.indexOf('width: 2') !== -1, 'should parse less');
@@ -33,7 +33,7 @@ test('should browserify less files', function(t) {
 
 test('should pass less options', function(t) {
   var result = ''
-    , s = lessify('mycss/test.less', {rootpath: 'mycss/'}); 
+    , s = lessify('mycss/test.less', {rootpath: 'mycss/'});
 
   var ts = through(function(d) { result += d; }, function() {
     var urlMatch = /url\(\\"(.*?)\\"\)/.exec(result)
@@ -50,8 +50,40 @@ test('should pass less options', function(t) {
 test('should throw on invalid less', function(t) {
   t.plan(1);
   var result = ''
-    , s = lessify('test.less'); 
+    , s = lessify('test.less');
 
   s.write('.}');
   t.throws(function() { s.end(); }, new RegExp('missing opening `\\{`: test\\.less\\(1\\)'), 'should throw on invalid less');
+});
+
+test('should not auto-inject when option set', function (t) {
+
+  var result = ''
+    , s = lessify('test.less', {"auto-inject": false});
+
+  var ts = through(function(d) { result += d; }, function() {
+    t.assert(result.indexOf('require(\'lessify\')') === -1, 'should not require lessify');
+    t.end();
+  });
+
+  s.pipe(ts);
+  s.write('.nav { width: (1 + 1); }');
+  s.end();
+
+});
+
+test('should auto-inject by default', function (t) {
+
+  var result = ''
+    , s = lessify('test.less');
+
+  var ts = through(function(d) { result += d; }, function() {
+    t.assert(result.indexOf('require(\'lessify\')') !== -1, 'should require lessify');
+    t.end();
+  });
+
+  s.pipe(ts);
+  s.write('.nav { width: (1 + 1); }');
+  s.end();
+
 });
