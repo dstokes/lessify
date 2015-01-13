@@ -26,11 +26,11 @@ module.exports = function(file, opts) {
     lessOpts.filename = file;
     lessOpts.paths = [path.dirname(file)];
 
-    less.render(input, lessOpts, function(err, css) {
+    less.render(input, lessOpts, function(err, output) {
       if (err) {
         self.emit('error', new Error(err.message + ': ' + err.filename + '(' + err.line + ')'));
       } else {
-        self.queue(jsToLoad(css));
+        self.queue(jsToLoad(output.css));
       }
       self.queue(null);
     });
