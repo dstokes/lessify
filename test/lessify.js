@@ -53,7 +53,7 @@ test('should throw on invalid less', function(t) {
     , s = lessify('test.less');
 
   s.write('.}');
-  t.throws(function() { s.end(); }, new RegExp('.*'), 'should throw on invalid less');
+  t.throws(function() { s.end(); }, 'should throw on invalid less');
 });
 
 test('should not auto-inject when option set', function (t) {
