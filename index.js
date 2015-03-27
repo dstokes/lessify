@@ -32,6 +32,9 @@ module.exports = function(file, opts) {
       } else {
         self.queue(jsToLoad(output.css));
       }
+      output.imports.forEach(function(f) {
+        self.emit('file', f);
+      });
       self.queue(null);
     });
   }
