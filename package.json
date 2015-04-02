@@ -1,6 +1,6 @@
 {
   "name": "lessify",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Middleware and Browserify transform for less files",
   "main": "./index.js",
   "browserify": "./transform.js",
