@@ -24,7 +24,7 @@ module.exports = function(file, opts) {
     }
 
     lessOpts.filename = file;
-    lessOpts.paths = [path.dirname(file)];
+    lessOpts.paths = lessOpts.paths ? lessOpts.paths.concat([path.dirname(file)]) : [path.dirname(file)];
 
     less.render(input, lessOpts, function(err, output) {
       if (err) {
